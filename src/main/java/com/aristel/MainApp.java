@@ -29,9 +29,6 @@ public class MainApp extends Application {
             FXMLLoader loader = new FXMLLoader(MainApp.class.getResource(fxmlPath));
             Parent root = loader.load();
             Scene scene = new Scene(root);
-            
-            scene.getStylesheets().add(MainApp.class.getResource("styles/style.css").toExternalForm());
-            
             primaryStage.setScene(scene);
         } catch (IOException e) {
             e.printStackTrace();

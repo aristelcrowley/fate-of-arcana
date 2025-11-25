@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+
+<VBox alignment="CENTER" spacing="20.0" 
+      xmlns="http://javafx.com/javafx/17" 
+      xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="com.aristel.controller.LobbyController"
+      stylesheets="@../styles/lobby.css"
+      styleClass="lobby-background">
+
+    <padding>
+        <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+    </padding>
+
+    <Label text="Memory Match Online" styleClass="title-text" />
+
+    <Label fx:id="statusLabel" text="Connect to a server to play" styleClass="status-text"/>
+
+    <TextField fx:id="roomInput" promptText="Enter Room Name (e.g. Room1)" maxWidth="300" />
+
+    <HBox alignment="CENTER" spacing="15.0">
+        <Button text="Create Room" onAction="#handleCreate" styleClass="action-button" />
+        <Button text="Join Room" onAction="#handleJoin" styleClass="action-button" />
+    </HBox>
+
+</VBox>
