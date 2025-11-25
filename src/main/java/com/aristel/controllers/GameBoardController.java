@@ -1,7 +1,5 @@
-package com.aristel.controller;
+package com.aristel.controllers;
 
-import com.aristel.network.ClientConnection;
-import com.aristel.network.IncomingMessageListener;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -15,6 +13,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import com.aristel.networks.ClientConnection;
+import com.aristel.networks.IncomingMessageListener;
 
 public class GameBoardController implements IncomingMessageListener {
 

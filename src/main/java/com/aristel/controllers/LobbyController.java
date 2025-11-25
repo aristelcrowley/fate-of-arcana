@@ -1,8 +1,9 @@
-package com.aristel.controller;
+package com.aristel.controllers;
 
 import com.aristel.MainApp;
-import com.aristel.network.ClientConnection;
-import com.aristel.network.IncomingMessageListener;
+import com.aristel.networks.ClientConnection;
+import com.aristel.networks.IncomingMessageListener;
+
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

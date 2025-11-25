@@ -1,4 +1,4 @@
-package com.aristel.network;
+package com.aristel.networks;
 
 import java.io.IOException;
 import java.io.PrintWriter;

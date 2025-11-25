@@ -1,4 +1,4 @@
-package com.aristel.network;
+package com.aristel.networks;
 
 import javafx.application.Platform;
 import java.io.BufferedReader;
