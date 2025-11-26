@@ -75,54 +75,39 @@
 
 .overlay-dim { -fx-background-color: rgba(0,0,0,0.85); }
 
-.popup-inner {
-    -fx-background-color: #2f3640;
-    -fx-border-color: #fbc531;
-    -fx-border-width: 4px;
-    -fx-padding: 30;
-    -fx-alignment: CENTER;
-}
-
-.popup-header {
-    -fx-text-fill: #fbc531;
-    -fx-font-size: 18px;
-    -fx-font-weight: bold;
-}
-
-.popup-big-text {
-    -fx-text-fill: white;
-    -fx-font-size: 32px;
-    -fx-font-weight: bold;
-}
-
-.popup-timer {
-    -fx-text-fill: #e84118;
-    -fx-font-size: 20px;
-    -fx-font-family: "Courier New";
-}
-
 .popup-inner-end {
     -fx-background-color: #2f3640;
     -fx-border-color: white;
     -fx-border-width: 5px;
-    -fx-padding: 40;
+    -fx-padding: 30;
+    -fx-effect: dropshadow(three-pass-box, black, 50, 0, 0, 0); /* Massive Shadow */
 }
 
 .result-title {
     -fx-font-size: 48px;
     -fx-font-weight: bold;
-    -fx-text-fill: #4cd137; /* Win Green */
-    -fx-effect: dropshadow(three-pass-box, #4cd137, 10, 0, 0, 0);
+    -fx-font-family: "Georgia";
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 5, 0, 0, 0);
 }
 
-.result-message {
-    -fx-font-size: 20px;
-    -fx-text-fill: white;
+.result-score {
+    -fx-font-size: 24px;
+    -fx-font-family: "Courier New";
+    -fx-font-weight: bold;
+    -fx-text-fill: #fbc531; /* Gold */
+}
+
+.flavor-text {
+    -fx-font-size: 16px;
+    -fx-font-family: "Times New Roman";
+    -fx-font-style: italic;
+    -fx-text-fill: #bdc3c7; /* Silver/Grey */
 }
 
 .return-timer {
-    -fx-font-size: 16px;
+    -fx-font-size: 14px;
     -fx-text-fill: #7f8c8d;
+    -fx-font-family: "Courier New";
 }
 
 .transparent-scroll {

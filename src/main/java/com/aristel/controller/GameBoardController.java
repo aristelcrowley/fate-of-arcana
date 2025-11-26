@@ -33,12 +33,16 @@ public class GameBoardController implements IncomingMessageListener {
     @FXML private AnchorPane endPopup;
     @FXML private Label resultTitle;
     @FXML private Label resultMessage;
+    @FXML private Label finalScoreLabel; 
+    @FXML private ImageView resultImage;
+    @FXML private Label flavorLine1;     
+    @FXML private Label flavorLine2;     
+    @FXML private Label flavorLine3;     
     @FXML private Label returnTimerLabel;
 
     private List<Button> cardButtons = new ArrayList<>();
     private Map<Integer, Image> imageCache = new HashMap<>();
     private Image backCardImage;
-    
     private int myPlayerId = -1;
     private int currentTurnId = -1; 
     private Map<Integer, Integer> playerScores = new HashMap<>();
@@ -155,16 +159,12 @@ public class GameBoardController implements IncomingMessageListener {
     private void setupBoard(int totalCards) {
         boardGrid.getChildren().clear();
         cardButtons.clear();
-
-        // LOGIC CHANGE: Fixed 5 Rows, Dynamic Columns
         int rows = 5;
-        int columns = totalCards / rows; // 20->4, 30->6, 40->8
+        int columns = totalCards / rows; 
         
         for (int i = 0; i < totalCards; i++) {
-            Button btn = new Button();
-            
-            btn.setPrefSize(100, 140); 
-            
+            Button btn = new Button();        
+            btn.setPrefSize(100, 140);  
             btn.getStyleClass().add("card-button"); 
             setButtonImage(btn, backCardImage);
 
@@ -272,28 +272,64 @@ public class GameBoardController implements IncomingMessageListener {
             }
         }
 
+        int myScore = playerScores.getOrDefault(myPlayerId, 0);
+        finalScoreLabel.setText("Final Score: " + myScore);
+
         if (winners.contains(myPlayerId)) {
             if (winners.size() > 1) {
-                resultTitle.setText("DRAW");
-                resultTitle.setStyle("-fx-text-fill: yellow;");
-                resultMessage.setText("Fate is undecided.");
+                setEndScreenContent(
+                    "DRAW", "-fx-text-fill: #f1c40f;", "draw.png",
+                    "The scales of destiny remain balanced.",
+                    "Neither light nor shadow could claim you.",
+                    "Fate demands a rematch to decide."
+                );
             } else {
-                resultTitle.setText("VICTORY");
-                resultTitle.setStyle("-fx-text-fill: #4cd137;");
-                resultMessage.setText("You are the Arcana Master.");
+                setEndScreenContent(
+                    "VICTORY", "-fx-text-fill: #4cd137;", "win.png",
+                    "The threads of fate weave in your favor.",
+                    "You have ascended beyond the mortal coil.",
+                    "The Major Arcana bow to your will."
+                );
             }
         } else {
-            resultTitle.setText("DEFEAT");
-            resultTitle.setStyle("-fx-text-fill: #e74c3c;");
-            resultMessage.setText("Destiny was not with you.");
+            setEndScreenContent(
+                "DEFEAT", "-fx-text-fill: #e74c3c;", "lose.png",
+                "Your thread has been severed by destiny.",
+                "The cards reveal only ruin and despair.",
+                "Return to the void, forgotten soul."
+            );
         }
 
-        Timeline timeline = new Timeline(
-            new KeyFrame(Duration.seconds(5), e -> {
+        Timeline timeline = new Timeline();
+        for (int i = 0; i < 10; i++) {
+            int secondsLeft = 10 - i;
+            timeline.getKeyFrames().add(
+                new KeyFrame(Duration.seconds(i), e -> returnTimerLabel.setText("Returning in " + secondsLeft + "..."))
+            );
+        }
+        timeline.getKeyFrames().add(
+            new KeyFrame(Duration.seconds(10), e -> {
                 ClientConnection.getInstance().sendMessage("LEAVE"); 
                 MainApp.loadView("views/LobbyView.fxml");
             })
         );
+        
         timeline.play();
+    }
+
+    private void setEndScreenContent(String title, String style, String imgName, String l1, String l2, String l3) {
+        resultTitle.setText(title);
+        resultTitle.setStyle(style);
+        
+        flavorLine1.setText(l1);
+        flavorLine2.setText(l2);
+        flavorLine3.setText(l3);
+
+        try {
+            Image img = new Image(getClass().getResourceAsStream("/com/aristel/assets/" + imgName));
+            resultImage.setImage(img);
+        } catch (Exception e) {
+            System.err.println("Missing Image: " + imgName);
+        }
     }
 }

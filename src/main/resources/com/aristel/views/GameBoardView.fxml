@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.GridPane?>
@@ -51,11 +52,8 @@
             
             <VBox alignment="CENTER" spacing="15" styleClass="popup-inner">
                 <Label text="FATE CHOSEN" styleClass="popup-header"/>
-                
                 <Label text="Turn Order:" styleClass="instruction-text"/>
-                
                 <VBox fx:id="startOrderContainer" alignment="CENTER" spacing="5"/>
-                
                 <Label fx:id="countdownLabel" text="Begins in 5..." styleClass="popup-timer">
                     <padding><Insets top="10"/></padding>
                 </Label>
@@ -64,12 +62,24 @@
     </AnchorPane>
 
     <AnchorPane fx:id="endPopup" styleClass="overlay-dim" visible="false">
-        <VBox alignment="CENTER" styleClass="popup-box" maxWidth="500" maxHeight="300"
+        <VBox alignment="CENTER" styleClass="popup-box" maxWidth="700" maxHeight="600"
               AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0">
-            <VBox alignment="CENTER" spacing="15" styleClass="popup-inner-end">
+            
+            <VBox alignment="CENTER" spacing="10" styleClass="popup-inner-end">
                 <Label fx:id="resultTitle" text="VICTORY" styleClass="result-title"/>
-                <Label fx:id="resultMessage" text="You conquered fate." styleClass="result-message"/>
-                <Label fx:id="returnTimerLabel" text="Returning to lobby in 5s..." styleClass="return-timer"/>
+                
+                <Label fx:id="finalScoreLabel" text="Final Score: 0" styleClass="result-score"/>
+                
+                <ImageView fx:id="resultImage" fitWidth="250" fitHeight="250" preserveRatio="true"/>
+                
+                <VBox alignment="CENTER" spacing="5">
+                    <padding><Insets top="10" bottom="10"/></padding>
+                    <Label fx:id="flavorLine1" text="Line 1" styleClass="flavor-text"/>
+                    <Label fx:id="flavorLine2" text="Line 2" styleClass="flavor-text"/>
+                    <Label fx:id="flavorLine3" text="Line 3" styleClass="flavor-text"/>
+                </VBox>
+
+                <Label fx:id="returnTimerLabel" text="Returning to lobby in 10s..." styleClass="return-timer"/>
             </VBox>
         </VBox>
     </AnchorPane>
