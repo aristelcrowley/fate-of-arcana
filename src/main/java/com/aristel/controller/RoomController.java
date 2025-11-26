@@ -29,7 +29,7 @@ public class RoomController implements IncomingMessageListener {
         ClientConnection.getInstance().setMessageListener(this);
         ClientConnection.getInstance().sendMessage("GET_STATE");
         
-        addToLog("Fate has brought upon you to this sacred room, Player " + myPlayerId);
+        addToLog("Destiny confronted you as you entered the room.");
     }
 
     @FXML private void handleStart() { ClientConnection.getInstance().sendMessage("START"); }

@@ -29,6 +29,7 @@ public class GameRoom {
         }
 
         broadcastRoomState();
+        broadcast("MSG:Player " + p.playerID + " joined the destiny.");
         
         return true;
     }
@@ -38,11 +39,20 @@ public class GameRoom {
 
         if (players.isEmpty()) {
             GameServer.removeRoom(this.roomId);
-        } else {
+        } else {   
             if (p == roomMaster) {
                 roomMaster = players.get(0);
-            }
+                broadcast("MSG:Elden lord tries to futilely escape, Player " + roomMaster.playerID + " ascend to the throne.");
+            } 
+
+            broadcast("MSG:Player " + p.playerID + " meets their fated demise.");
+
             broadcastRoomState();
+
+            if (isGameRunning && players.size() < 2) {
+                isGameRunning = false;
+                broadcast("MSG:Destiny stand brave as there is not enough players to challenge it.");
+            }
         }
     }
 
