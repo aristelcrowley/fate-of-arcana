@@ -28,9 +28,15 @@ public class MainApp extends Application {
     public static void loadView(String fxmlPath) {
         try {
             FXMLLoader loader = new FXMLLoader(MainApp.class.getResource(fxmlPath));
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-            primaryStage.setScene(scene);
+            Parent newRoot = loader.load();
+            
+            if (primaryStage.getScene() == null) {
+                Scene scene = new Scene(newRoot);
+                primaryStage.setScene(scene);
+                primaryStage.setMaximized(true);
+            } else {
+                primaryStage.getScene().setRoot(newRoot);
+            }
         } catch (IOException e) {
             e.printStackTrace();
             System.err.println("Could not load FXML: " + fxmlPath);
