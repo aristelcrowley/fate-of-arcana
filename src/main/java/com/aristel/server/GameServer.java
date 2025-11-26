@@ -41,7 +41,6 @@ public class GameServer {
         }
     }
 
-    // --- NEW METHOD FOR LOBBY ---
     public static synchronized String getRoomList() {
         if (rooms.isEmpty()) return "ROOM_LIST:";
         

@@ -68,9 +68,12 @@ public class LobbyController implements IncomingMessageListener {
             Platform.runLater(() -> statusLabel.setText(message.split(":", 2)[1]));
         } 
         else if (message.startsWith("JOINED:")) {
+            int myId = Integer.parseInt(message.split(":")[1]);
+            ClientConnection.getInstance().myPlayerId = myId; 
+
             Platform.runLater(() -> {
-                System.out.println("Join successful, switching to GameBoard...");
-                MainApp.loadView("views/GameBoardView.fxml");
+                System.out.println("Join successful, switching to RoomView...");
+                MainApp.loadView("views/RoomView.fxml");   
             });
         }
     }

@@ -42,11 +42,9 @@ public class ClientHandler extends Thread {
                         sendMessage("ERROR:Room '" + roomId + "' already exists.");
                     }
                 } 
-                // --- NEW COMMAND ---
                 else if (command.equals("GET_ROOMS")) {
                     sendMessage(GameServer.getRoomList());
                 }
-                // -------------------
                 else if (command.equals("JOIN")) {
                     String roomId = parts[1];
                     GameRoom room = GameServer.findRoom(roomId);
@@ -69,6 +67,16 @@ public class ClientHandler extends Thread {
                     if (currentRoom != null) {
                         int cardIndex = Integer.parseInt(parts[1]);
                         currentRoom.processTurn(this.playerID, cardIndex);
+                    }
+                } else if (command.equals("LEAVE")) {
+                    if (currentRoom != null) {
+                        currentRoom.removePlayer(this);
+                        currentRoom = null;
+                        sendMessage("LEFT_ROOM");
+                    }
+                } else if (command.equals("GET_STATE")) {
+                    if (currentRoom != null) {
+                        currentRoom.sendStateToPlayer(this);
                     }
                 }
             }

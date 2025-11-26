@@ -28,31 +28,21 @@ public class GameRoom {
             roomMaster = p;
         }
 
-        broadcast("MSG:Player " + p.playerID + " connected.");
-        
-        if (roomMaster != null) {
-            broadcast("MSG:Current Room Master is Player " + roomMaster.playerID);
-        }
+        broadcastRoomState();
         
         return true;
     }
 
     public synchronized void removePlayer(ClientHandler p) {
         players.remove(p);
-        broadcast("MSG:Player " + p.playerID + " left the room.");
 
         if (players.isEmpty()) {
             GameServer.removeRoom(this.roomId);
         } else {
             if (p == roomMaster) {
                 roomMaster = players.get(0);
-                broadcast("MSG:Owner left. Player " + roomMaster.playerID + " is now the Room Master!");
             }
-            
-            if (isGameRunning && players.size() < 2) {
-                isGameRunning = false;
-                broadcast("MSG:Not enough players to continue. Game Stopped.");
-            }
+            broadcastRoomState();
         }
     }
 
@@ -145,6 +135,31 @@ public class GameRoom {
 
     private void broadcast(String msg) {
         for (ClientHandler p : players) p.sendMessage(msg);
+    }
+
+    private void broadcastRoomState() {
+        StringBuilder sb = new StringBuilder("ROOM_STATE:");
+        sb.append(roomId).append(":");
+        sb.append(roomMaster.playerID).append(":");
+        sb.append(players.size()).append(":");
+        
+        for (ClientHandler p : players) {
+            sb.append(p.playerID).append(",");
+        }
+        
+        broadcast(sb.toString());
+    }
+
+    public void sendStateToPlayer(ClientHandler p) {
+        StringBuilder sb = new StringBuilder("ROOM_STATE:");
+        sb.append(roomId).append(":");
+        sb.append(roomMaster.playerID).append(":");
+        sb.append(players.size()).append(":");
+        
+        for (ClientHandler player : players) {
+            sb.append(player.playerID).append(",");
+        }
+        p.sendMessage(sb.toString());
     }
 
     public String getRoomId() {

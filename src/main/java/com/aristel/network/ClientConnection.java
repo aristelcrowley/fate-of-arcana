@@ -9,8 +9,8 @@ public class ClientConnection {
     private Socket socket;
     private PrintWriter out;
     private ServerListener listenerThread;
-
     private ClientConnection() {}
+    public int myPlayerId = -1;
 
     public static ClientConnection getInstance() {
         if (instance == null) {
