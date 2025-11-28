@@ -59,9 +59,9 @@ public class GameBoardController implements IncomingMessageListener {
 
     private void loadImages() {
         try {
-            backCardImage = new Image(getClass().getResourceAsStream("/com/aristel/assets/back.png"));
+            backCardImage = new Image(getClass().getResourceAsStream("/com/aristel/assets/images/back.png"));
             for (int i = 0; i < 20; i++) {
-                String path = "/com/aristel/assets/" + i + ".png";
+                String path = "/com/aristel/assets/images/" + i + ".png";
                 Image img = new Image(getClass().getResourceAsStream(path));
                 imageCache.put(i, img);
             }
@@ -330,7 +330,7 @@ public class GameBoardController implements IncomingMessageListener {
         flavorLine3.setText(l3);
 
         try {
-            Image img = new Image(getClass().getResourceAsStream("/com/aristel/assets/" + imgName));
+            Image img = new Image(getClass().getResourceAsStream("/com/aristel/assets/images/" + imgName));
             resultImage.setImage(img);
         } catch (Exception e) {
             System.err.println("Missing Image: " + imgName);

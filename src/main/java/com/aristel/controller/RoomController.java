@@ -110,7 +110,7 @@ public class RoomController implements IncomingMessageListener {
         card.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
 
         try {
-            ImageView profileImg = new ImageView(new Image(getClass().getResourceAsStream("/com/aristel/assets/profile.png")));
+            ImageView profileImg = new ImageView(new Image(getClass().getResourceAsStream("/com/aristel/assets/images/profile.png")));
             profileImg.setFitWidth(40);
             profileImg.setFitHeight(40);
             card.getChildren().add(profileImg);
@@ -129,7 +129,8 @@ public class RoomController implements IncomingMessageListener {
 
         if (isMaster) {
             try {
-                ImageView masterImg = new ImageView(new Image(getClass().getResourceAsStream("/com/aristel/assets/roommaster.png")));
+                ImageView masterImg = new ImageView(new Image(getClass().getResourceAsStream("/com/aristel/assets/images/roommaster.png")));
+                masterImg.setFitWidth(25);
                 masterImg.setFitWidth(25);
                 masterImg.setFitHeight(25);
                 card.getChildren().add(masterImg);
