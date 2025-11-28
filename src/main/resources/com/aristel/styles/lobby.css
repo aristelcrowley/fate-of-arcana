@@ -1,112 +1,147 @@
-/* Background: Dark Mystic Blue */
+/* BACKGROUND: Dark Mystic Blue */
 .lobby-background {
     -fx-background-color: #1a1a2e;
 }
 
+/* HEADER TEXT */
 .title-text {
     -fx-font-family: "Georgia";
-    -fx-font-size: 32px;
-    -fx-text-fill: #f1c40f; /* Gold */
+    -fx-font-size: 36px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #fbc531; /* Gold */
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
 }
 
 .status-text {
-    -fx-text-fill: #bdc3c7;
+    -fx-font-family: "Courier New";
+    -fx-font-size: 14px;
+    -fx-text-fill: #bdc3c7; /* Silver */
     -fx-font-style: italic;
 }
 
-/* --- THE RETRO CARD --- */
+/* --- THE RETRO ROOM CARD (Dark Theme) --- */
 .room-card {
-    -fx-background-color: #ecf0f1; 
-    -fx-background-radius: 10;
-    -fx-border-color: #c0392b; 
-    -fx-border-width: 5px;
-    -fx-border-radius: 10;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 10, 0, 5, 5);
+    -fx-background-color: #2f3640; /* Dark Panel */
+    -fx-background-radius: 0;      /* Sharp corners */
+    -fx-border-color: #fbc531;     /* Gold Border */
+    -fx-border-width: 3px;
+    -fx-effect: dropshadow(three-pass-box, black, 10, 0, 5, 5);
     -fx-padding: 15;
+    -fx-alignment: CENTER;
+    -fx-spacing: 10;
 }
 
 .room-card:hover {
     -fx-scale-x: 1.05;
     -fx-scale-y: 1.05;
-    -fx-border-color: #f1c40f; 
+    -fx-border-color: white; /* Highlight on hover */
 }
 
 .card-title {
-    -fx-font-family: "Times New Roman";
-    -fx-font-size: 22px;
+    -fx-font-family: "Georgia";
+    -fx-font-size: 24px;
     -fx-font-weight: bold;
-    -fx-text-fill: #2c3e50;
+    -fx-text-fill: #fbc531; /* Gold */
     -fx-underline: true;
 }
 
 .card-detail {
     -fx-font-family: "Courier New";
     -fx-font-size: 14px;
-    -fx-text-fill: #7f8c8d;
+    -fx-text-fill: #bdc3c7; /* Silver */
+    -fx-font-weight: bold;
 }
 
 /* --- BUTTONS --- */
 .create-button {
-    -fx-background-color: #c0392b;
+    -fx-background-color: #c0392b; /* Red */
     -fx-text-fill: white;
+    -fx-font-family: "Courier New";
     -fx-font-weight: bold;
-    -fx-font-size: 16px;
-    -fx-padding: 15 30 15 30; /* Bigger button */
-    -fx-background-radius: 30;
+    -fx-font-size: 18px;
+    -fx-padding: 15 30;
+    -fx-border-color: #e74c3c;
+    -fx-border-width: 3px;
     -fx-cursor: hand;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 10, 0, 0, 5);
 }
 
 .create-button:hover {
     -fx-background-color: #e74c3c;
+    -fx-border-color: white;
     -fx-scale-x: 1.1;
     -fx-scale-y: 1.1;
 }
 
 .join-button {
-    -fx-background-color: #2c3e50;
-    -fx-text-fill: #f1c40f;
+    -fx-background-color: #27ae60; /* Green */
+    -fx-text-fill: white;
+    -fx-font-family: "Courier New";
     -fx-font-weight: bold;
-    -fx-border-color: #f1c40f;
+    -fx-font-size: 14px;
+    -fx-border-color: #2ecc71;
     -fx-border-width: 2px;
     -fx-cursor: hand;
+    -fx-padding: 8 20;
 }
 
 .join-button:hover {
-    -fx-background-color: #f1c40f;
-    -fx-text-fill: #2c3e50;
+    -fx-background-color: #2ecc71;
+    -fx-border-color: white;
 }
 
 .icon-button {
     -fx-background-color: transparent;
-    -fx-text-fill: gold;
+    -fx-text-fill: #fbc531; /* Gold */
     -fx-font-size: 20px;
     -fx-cursor: hand;
     -fx-padding: 5;
+    -fx-border-color: #fbc531;
+    -fx-border-width: 2px;
 }
 
 .icon-button:hover {
-    -fx-text-fill: white;
+    -fx-background-color: #fbc531;
+    -fx-text-fill: #2f3640;
 }
 
 /* --- INPUTS --- */
 .retro-input {
-    -fx-background-color: #34495e;
+    -fx-background-color: #353b48;
     -fx-text-fill: white;
+    -fx-font-family: "Courier New";
     -fx-border-color: #7f8c8d;
-    -fx-border-width: 0 0 2 0; 
+    -fx-border-width: 2px;
     -fx-font-size: 14px;
 }
 
-.popup-overlay {
-    -fx-background-color: rgba(0, 0, 0, 0.85); /* Darker dim */
+.retro-input:focused {
+    -fx-border-color: #fbc531;
 }
 
+/* --- SCROLL PANE --- */
+.card-scroll-pane {
+    -fx-background: transparent;
+    -fx-background-color: transparent;
+}
+.card-scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+/* Hide bars */
+.card-scroll-pane > .scroll-bar:horizontal,
+.card-scroll-pane > .scroll-bar:vertical {
+    -fx-opacity: 0;
+    -fx-padding: -10;
+    -fx-max-width: 0;
+}
+
+/* --- POPUPS (Shared Style) --- */
+.popup-overlay { -fx-background-color: rgba(0, 0, 0, 0.85); }
+
 .popup-inner {
-    -fx-background-color: #2f3640; /* Match GameBoard Theme */
+    -fx-background-color: #2f3640;
     -fx-padding: 30;
-    -fx-border-color: #fbc531; /* Gold Border */
+    -fx-border-color: #fbc531;
     -fx-border-width: 4px;
     -fx-effect: dropshadow(three-pass-box, black, 20, 0, 0, 0);
 }
@@ -115,26 +150,28 @@
     -fx-font-family: "Georgia";
     -fx-font-size: 24px;
     -fx-font-weight: bold;
-    -fx-text-fill: #fbc531; /* Gold Text */
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 5, 0, 0, 0);
+    -fx-text-fill: #fbc531;
+}
+
+.instruction-text {
+    -fx-font-family: "Courier New";
+    -fx-font-size: 16px;
+    -fx-text-fill: #bdc3c7;
 }
 
 .close-button {
     -fx-background-color: transparent;
-    -fx-text-fill: #e74c3c; /* Red */
+    -fx-text-fill: #e74c3c;
     -fx-font-family: "Courier New";
     -fx-font-weight: bold;
-    -fx-font-size: 28px; /* Much Bigger */
+    -fx-font-size: 24px;
     -fx-cursor: hand;
-    -fx-padding: 0 10 0 10;
-    -fx-border-color: transparent;
+    -fx-border-color: #e74c3c;
     -fx-border-width: 2px;
 }
-
 .close-button:hover {
-    -fx-text-fill: #c0392b;
-    -fx-border-color: #c0392b; /* Box appears on hover */
-    -fx-border-radius: 5;
+    -fx-background-color: #e74c3c;
+    -fx-text-fill: white;
 }
 
 .confirm-button {
@@ -142,31 +179,21 @@
     -fx-text-fill: white;
     -fx-font-family: "Courier New";
     -fx-font-weight: bold;
-    -fx-font-size: 18px;
+    -fx-font-size: 16px;
     -fx-padding: 10 30;
     -fx-border-color: #2ecc71;
     -fx-border-width: 2px;
     -fx-cursor: hand;
 }
+.confirm-button:hover { -fx-background-color: #2ecc71; }
 
-.confirm-button:hover {
-    -fx-background-color: #2ecc71;
-}
-
-.card-scroll-pane {
-    -fx-background: transparent;
-    -fx-background-color: transparent;
-}
-.card-scroll-pane .viewport {
-    -fx-background-color: transparent;
-}
-
+/* ERROR SPECIFIC */
 .error-title {
     -fx-font-family: "Georgia";
-    -fx-font-size: 36px; 
+    -fx-font-size: 36px;
     -fx-font-weight: bold;
-    -fx-text-fill: #e74c3c; 
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 5, 0, 0, 0);
+    -fx-text-fill: #e74c3c;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 5, 0, 0, 0);
     -fx-alignment: CENTER;
     -fx-text-alignment: CENTER;
 }
@@ -175,7 +202,7 @@
     -fx-font-family: "Courier New";
     -fx-font-size: 20px;
     -fx-font-weight: bold;
-    -fx-text-fill: #bdc3c7; 
+    -fx-text-fill: #bdc3c7; /* Silver */
     -fx-text-alignment: CENTER;
     -fx-alignment: CENTER;
 }
@@ -185,14 +212,12 @@
     -fx-text-fill: white;
     -fx-font-family: "Georgia";
     -fx-font-weight: bold;
-    -fx-font-size: 18px; 
-    -fx-padding: 15 40 15 40; 
+    -fx-font-size: 18px;
+    -fx-padding: 15 40;
     -fx-border-color: #e74c3c;
     -fx-border-width: 2px;
     -fx-cursor: hand;
 }
-
 .error-button:hover {
     -fx-background-color: #e74c3c;
-    -fx-text-fill: white;
 }
