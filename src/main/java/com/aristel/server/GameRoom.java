@@ -80,12 +80,24 @@ public class GameRoom {
         broadcast("TURN:" + players.get(currentPlayerIndex).playerID);
     }
     
-    private void generateBoard(int size) {
+    private void generateBoard(int totalCards) {
         board.clear();
-        for (int i = 0; i < size / 2; i++) {
-            board.add(i);
-            board.add(i);
+
+        List<Integer> availableImageIds = new ArrayList<>();
+        for (int i = 0; i < 20; i++) {
+            availableImageIds.add(i);
         }
+        Collections.shuffle(availableImageIds);
+
+        for (int i = 0; i < totalCards / 2; i++) {
+            if (i < availableImageIds.size()) {
+                int selectedId = availableImageIds.get(i);
+        
+                board.add(selectedId);
+                board.add(selectedId);
+            }
+        }
+
         Collections.shuffle(board);
         System.out.println("Room " + roomId + " board generated.");
     }
