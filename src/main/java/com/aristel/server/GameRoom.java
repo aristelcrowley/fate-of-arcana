@@ -160,10 +160,15 @@ public class GameRoom {
         if (!isGameRunning) return; 
 
         isGameRunning = false; 
+        
         board.clear();
         matchedCards = null;
         firstCardIndex = -1;
         isWaitingForDelay = false;
+
+        for (ClientHandler p : players) {
+            p.score = 0;
+        }
 
         broadcast("BACK_TO_ROOM"); 
         broadcastRoomState(); 
