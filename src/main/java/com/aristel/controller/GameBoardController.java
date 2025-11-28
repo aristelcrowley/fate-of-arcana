@@ -97,7 +97,7 @@ public class GameBoardController implements IncomingMessageListener {
 
             case "TURN":
                 int currentTurn = Integer.parseInt(parts[1]);
-                this.currentTurnId = currentTurn; // Update local state
+                this.currentTurnId = currentTurn; 
                 Platform.runLater(() -> updateTurn(currentTurn));
                 break;
                 
@@ -109,6 +109,10 @@ public class GameBoardController implements IncomingMessageListener {
                 
             case "GAME_OVER":
                 Platform.runLater(this::showEndScreen);
+                break;
+            
+            case "BACK_TO_ROOM":
+                Platform.runLater(() -> MainApp.loadView("views/RoomView.fxml"));
                 break;
         }
     }
@@ -307,10 +311,10 @@ public class GameBoardController implements IncomingMessageListener {
                 new KeyFrame(Duration.seconds(i), e -> returnTimerLabel.setText("Returning in " + secondsLeft + "..."))
             );
         }
+        
         timeline.getKeyFrames().add(
             new KeyFrame(Duration.seconds(10), e -> {
-                ClientConnection.getInstance().sendMessage("LEAVE"); 
-                MainApp.loadView("views/LobbyView.fxml");
+                ClientConnection.getInstance().sendMessage("RESET_GAME");
             })
         );
         

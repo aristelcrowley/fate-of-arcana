@@ -52,11 +52,15 @@ public class ClientHandler extends Thread {
                     if (room == null) {
                         sendMessage("ERROR:Room does not exist.");
                     } else {
-                        if (room.addPlayer(this)) {
-                            this.currentRoom = room;
-                            sendMessage("JOINED:" + this.playerID);
+                        if (room.getRoomStatus().equals("IN GAME")) {
+                            sendMessage("ERROR:IN_GAME");
+                        } else if (room.getPlayerCount() >= 4) {
+                            sendMessage("ERROR:FULL");
                         } else {
-                            sendMessage("ERROR:Room Full");
+                            if (room.addPlayer(this)) {
+                                this.currentRoom = room;
+                                sendMessage("JOINED:" + this.playerID);
+                            }
                         }
                     }
                 } else if (command.equals("START")) {
@@ -81,6 +85,10 @@ public class ClientHandler extends Thread {
                 } else if (command.equals("GET_GAME_STATE")) {
                     if (currentRoom != null) {
                         currentRoom.sendGameState(this);
+                    }
+                } else if (command.equals("RESET_GAME")) {
+                    if (currentRoom != null) {
+                        currentRoom.stopGame();
                     }
                 }
             }

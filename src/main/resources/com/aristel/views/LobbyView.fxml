@@ -79,4 +79,22 @@
         </VBox>
     </AnchorPane>
 
+    <AnchorPane fx:id="errorPopup" visible="false" styleClass="popup-overlay">
+        <VBox alignment="CENTER" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+             
+             <VBox spacing="30" styleClass="popup-inner" maxWidth="900">
+                 
+                 <Label text="THOU ART BARRED FROM ENTRY" styleClass="error-title" 
+                        maxWidth="Infinity" alignment="CENTER"/>
+                 
+                 <Label fx:id="errorLabel" text="[Error Reason]" styleClass="error-body" 
+                        wrapText="false" maxWidth="Infinity" alignment="CENTER"/>
+                 
+                 <HBox alignment="CENTER">
+                     <Button text="ACCEPT FATE" onAction="#hideErrorPopup" styleClass="error-button"/>
+                 </HBox>
+             </VBox>
+        </VBox>
+    </AnchorPane>
+
 </StackPane>

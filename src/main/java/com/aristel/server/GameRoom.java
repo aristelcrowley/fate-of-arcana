@@ -134,13 +134,27 @@ public class GameRoom {
 
     private void checkGameOver() {
         boolean allMatched = true;
+        
         for (boolean b : matchedCards) {
             if (!b) { allMatched = false; break; }
         }
+        
         if (allMatched) {
-            isGameRunning = false;
             broadcast("GAME_OVER");
         }
+    }
+
+    public synchronized void stopGame() {
+        if (!isGameRunning) return; 
+
+        isGameRunning = false; 
+        board.clear();
+        matchedCards = null;
+        firstCardIndex = -1;
+        isWaitingForDelay = false;
+
+        broadcast("BACK_TO_ROOM"); 
+        broadcastRoomState(); 
     }
 
     private void broadcast(String msg) {
@@ -182,6 +196,10 @@ public class GameRoom {
         }
         p.sendMessage(sb.toString());
         p.sendMessage("TURN:" + players.get(currentPlayerIndex).playerID);
+    }
+
+    public String getRoomStatus() {
+        return isGameRunning ? "IN GAME" : "WAITING";
     }
 
     public String getRoomId() {

@@ -48,7 +48,8 @@ public class GameServer {
         for (GameRoom room : rooms.values()) {
             sb.append(room.getRoomId()).append(",")
               .append(room.getMasterName()).append(",")
-              .append(room.getPlayerCount()).append(";");
+              .append(room.getPlayerCount()).append(",")
+              .append(room.getRoomStatus()) .append(";");
         }
         return sb.toString();
     }
