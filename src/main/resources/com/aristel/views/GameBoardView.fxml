@@ -20,13 +20,15 @@
 
     <BorderPane>
         <left>
-            <VBox spacing="20" styleClass="sidebar-panel" prefWidth="250">
+            <VBox spacing="20" styleClass="sidebar-panel" prefWidth="300">
                 <padding><Insets top="20" left="20" right="20" bottom="20"/></padding>
                 
                 <VBox styleClass="info-card" spacing="5">
                     <padding><Insets top="10" left="10" right="10" bottom="10"/></padding>
                     <Label text="CURRENT FATE" styleClass="info-header"/>
-                    <Label fx:id="turnLabel" text="Player -" styleClass="turn-highlight"/>
+                    
+                    <Label fx:id="turnLabel" text="Player -" styleClass="turn-highlight" wrapText="true"/>
+                    
                     <Label fx:id="instructionLabel" text="Waiting for destiny..." styleClass="instruction-text" wrapText="true"/>
                 </VBox>
 
