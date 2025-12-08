@@ -54,7 +54,7 @@ public class ClientHandler extends Thread {
                     GameRoom room = GameServer.findRoom(roomId);
                     
                     if (room == null) {
-                        sendMessage("ERROR:Room does not exist.");
+                        sendMessage("ERROR:ROOM_NOT_EXIST");
                     } else {
                         if (room.getRoomStatus().equals("IN GAME")) {
                             sendMessage("ERROR:IN_GAME");

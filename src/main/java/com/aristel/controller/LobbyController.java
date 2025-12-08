@@ -178,6 +178,11 @@ public class LobbyController implements IncomingMessageListener {
                 showError("DESTINY TAKEN", "A realm by that name has already been woven into existence.");
                 ClientConnection.getInstance().sendMessage("GET_ROOMS");
             });
+        } else if (message.equals("ERROR:ROOM_NOT_EXIST")) {
+            Platform.runLater(() -> {
+                showError("VOID ENCOUNTERED", "The realm thou seekest has faded from existence.");
+                ClientConnection.getInstance().sendMessage("GET_ROOMS");
+            });
         } else if (message.startsWith("MSG:") || message.startsWith("ERROR:")) {
             Platform.runLater(() -> statusLabel.setText(message.split(":", 2)[1]));
         } else if (message.startsWith("JOINED:")) {
