@@ -29,7 +29,10 @@ public class ClientHandler extends Thread {
 
                 if (command.equals("CREATE")) {
                     String roomId = parts[1];
-                    boolean created = GameServer.createRoom(roomId);
+                    String password = (parts.length > 2) ? parts[2] : "";
+                    
+                    boolean created = GameServer.createRoom(roomId, password);
+
                     if (created) {
                         sendMessage("MSG:Room '" + roomId + "' created.");
                         
@@ -42,12 +45,12 @@ public class ClientHandler extends Thread {
                     } else {
                         sendMessage("ERROR:Room '" + roomId + "' already exists.");
                     }
-                } 
-                else if (command.equals("GET_ROOMS")) {
+                } else if (command.equals("GET_ROOMS")) {
                     sendMessage(GameServer.getRoomList());
-                }
-                else if (command.equals("JOIN")) {
+                } else if (command.equals("JOIN")) {
                     String roomId = parts[1];
+                    String inputPwd = (parts.length > 2) ? parts[2] : "";
+                    
                     GameRoom room = GameServer.findRoom(roomId);
                     
                     if (room == null) {
@@ -58,9 +61,13 @@ public class ClientHandler extends Thread {
                         } else if (room.getPlayerCount() >= 4) {
                             sendMessage("ERROR:FULL");
                         } else {
-                            if (room.addPlayer(this)) {
-                                this.currentRoom = room;
-                                sendMessage("JOINED:" + this.playerID);
+                            if (room.isPrivate() && !room.checkPassword(inputPwd)) {
+                                sendMessage("ERROR:WRONG_PASSWORD");
+                            } else {
+                                if (room.addPlayer(this)) {
+                                    this.currentRoom = room;
+                                    sendMessage("JOINED:" + this.playerID);
+                                }
                             }
                         }
                     }

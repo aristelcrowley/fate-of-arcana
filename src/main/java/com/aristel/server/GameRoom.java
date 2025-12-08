@@ -13,9 +13,19 @@ public class GameRoom {
     private int currentPlayerIndex = 0; 
     private int firstCardIndex = -1; 
     private boolean isWaitingForDelay = false;
+    private String password = "";
 
-    public GameRoom(String id) {
+    public GameRoom(String id, String pwd) {
         this.roomId = id;
+        this.password = (pwd == null) ? "" : pwd;
+    }
+
+    public boolean isPrivate() {
+        return !password.isEmpty();
+    }
+    
+    public boolean checkPassword(String input) {
+        return password.equals(input);
     }
 
     public synchronized boolean addPlayer(ClientHandler p) {
@@ -264,6 +274,11 @@ public class GameRoom {
         }
         p.sendMessage(sb.toString());
         p.sendMessage("TURN:" + players.get(currentPlayerIndex).playerID);
+    }
+
+    public String getRoomListData() {
+        String type = isPrivate() ? "PRIVATE" : "PUBLIC";
+        return roomId + "," + getMasterName() + "," + getPlayerCount() + "," + getRoomStatus() + "," + type;
     }
 
     public String getRoomStatus() {

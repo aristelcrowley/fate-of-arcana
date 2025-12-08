@@ -21,12 +21,12 @@ public class GameServer {
         }
     }
 
-    public static synchronized boolean createRoom(String roomId) {
+    public static synchronized boolean createRoom(String roomId, String password) {
         if (rooms.containsKey(roomId)) {
             return false;
         }
-        rooms.put(roomId, new GameRoom(roomId));
-        System.out.println("Created new room: " + roomId);
+        rooms.put(roomId, new GameRoom(roomId, password));
+        System.out.println("Room Created: " + roomId + " (Private: " + !password.isEmpty() + ")");
         return true;
     }
 
@@ -42,14 +42,9 @@ public class GameServer {
     }
 
     public static synchronized String getRoomList() {
-        if (rooms.isEmpty()) return "ROOM_LIST:";
-        
         StringBuilder sb = new StringBuilder("ROOM_LIST:");
         for (GameRoom room : rooms.values()) {
-            sb.append(room.getRoomId()).append(",")
-              .append(room.getMasterName()).append(",")
-              .append(room.getPlayerCount()).append(",")
-              .append(room.getRoomStatus()) .append(";");
+            sb.append(room.getRoomListData()).append(";");
         }
         return sb.toString();
     }
