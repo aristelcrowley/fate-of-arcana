@@ -106,10 +106,12 @@ public class LobbyController implements IncomingMessageListener {
     private void handleJoinClick(String roomName, String status, int currentPlayers, boolean isPrivate) {
         if (currentPlayers >= 4) {
             showError("ROOM FULL", "There are too many souls in that room already.");
+            ClientConnection.getInstance().sendMessage("GET_ROOMS");
             return;
         }
         if (status.equals("IN GAME")) {
             showError("FATE SEALED", "They done vainly wagered their fates in that room.");
+            ClientConnection.getInstance().sendMessage("GET_ROOMS");
             return;
         }
 
@@ -156,21 +158,29 @@ public class LobbyController implements IncomingMessageListener {
             lastRoomData = message.substring(10); 
             String filterText = isSearchActive ? searchInput.getText() : "";
             Platform.runLater(() -> renderRooms(lastRoomData, filterText));
-        } 
-        else if (message.equals("ERROR:WRONG_PASSWORD")) {
-            Platform.runLater(() -> showError("ACCESS DENIED", "Thou art not invited to this destiny."));
-        }
-        else if (message.equals("ERROR:FULL")) {
-            Platform.runLater(() -> showError("ROOM FULL", "There are too many souls in that room already."));
-        } 
-        else if (message.equals("ERROR:IN_GAME")) {
-            Platform.runLater(() -> showError("FATE SEALED", "They done vainly wagered their fates in that room."));
+        } else if (message.equals("ERROR:WRONG_PASSWORD")) {
+            Platform.runLater(() -> {
+                showError("ACCESS DENIED", "Thou art not invited to this destiny.");
+                ClientConnection.getInstance().sendMessage("GET_ROOMS");
+            });
+        } else if (message.equals("ERROR:FULL")) {
+            Platform.runLater(() -> {
+                showError("ROOM FULL", "There are too many souls in that room already.");
+                ClientConnection.getInstance().sendMessage("GET_ROOMS");
+            });
+        } else if (message.equals("ERROR:IN_GAME")) {
+            Platform.runLater(() -> {
+                showError("FATE SEALED", "They done vainly wagered their fates in that room.");
+                ClientConnection.getInstance().sendMessage("GET_ROOMS");
+            });
         } else if (message.equals("ERROR:ROOM_EXIST")) {
-            Platform.runLater(() -> showError("DESTINY TAKEN", "A realm by that name has already been woven into existence."));
+            Platform.runLater(() -> {
+                showError("DESTINY TAKEN", "A realm by that name has already been woven into existence.");
+                ClientConnection.getInstance().sendMessage("GET_ROOMS");
+            });
         } else if (message.startsWith("MSG:") || message.startsWith("ERROR:")) {
             Platform.runLater(() -> statusLabel.setText(message.split(":", 2)[1]));
-        } 
-        else if (message.startsWith("JOINED:")) {
+        } else if (message.startsWith("JOINED:")) {
             int myId = Integer.parseInt(message.split(":")[1]);
             ClientConnection.getInstance().myPlayerId = myId;
             Platform.runLater(() -> MainApp.loadView("views/RoomView.fxml"));
