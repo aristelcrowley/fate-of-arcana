@@ -3,6 +3,8 @@ package com.aristel.controller;
 import com.aristel.MainApp;
 import com.aristel.network.ClientConnection;
 import com.aristel.network.IncomingMessageListener;
+import com.aristel.util.SoundManager;
+
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -72,6 +74,7 @@ public class LobbyController implements IncomingMessageListener {
     }
 
     @FXML private void showCreatePopup() { 
+        SoundManager.getInstance().play("click");
         createPopup.setVisible(true); 
         createPopup.toFront(); 
     }
@@ -83,6 +86,7 @@ public class LobbyController implements IncomingMessageListener {
     }
 
     @FXML private void handleConfirmCreate() {
+        SoundManager.getInstance().play("click");
         String room = newRoomNameInput.getText();
         String pass = "";
 
@@ -134,16 +138,19 @@ public class LobbyController implements IncomingMessageListener {
     }
 
     @FXML private void handleSearch() {
+        SoundManager.getInstance().play("click");
         isSearchActive = true;
         ClientConnection.getInstance().sendMessage("GET_ROOMS");
     }
     @FXML private void handleRefresh() {
+        SoundManager.getInstance().play("click");
         isSearchActive = false;
         searchInput.clear();
         ClientConnection.getInstance().sendMessage("GET_ROOMS");
     }
 
     private void showError(String title, String body) {
+        SoundManager.getInstance().play("error");
         if (errorTitle != null) errorTitle.setText(title);
         if (errorLabel != null) errorLabel.setText(body);
         errorPopup.setVisible(true);

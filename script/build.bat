@@ -36,7 +36,7 @@ echo.
 echo ==========================================
 echo      STEP 2: COMPILING JAVA CODE
 echo ==========================================
-javac -d bin --module-path "%JAVAFX_LIB%" --add-modules javafx.controls,javafx.fxml src/main/java/com/aristel/server/*.java src/main/java/com/aristel/network/*.java src/main/java/com/aristel/controller/*.java src/main/java/com/aristel/*.java
+javac -d bin --module-path "%JAVAFX_LIB%" --add-modules javafx.controls,javafx.fxml,javafx.media src/main/java/com/aristel/server/*.java src/main/java/com/aristel/network/*.java src/main/java/com/aristel/controller/*.java src/main/java/com/aristel/*.java src\main\java\com\aristel\util\*.java
 
 if %errorlevel% neq 0 (
     echo [ERROR] Compilation Failed!

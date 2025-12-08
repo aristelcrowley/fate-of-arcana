@@ -3,6 +3,8 @@ package com.aristel.controller;
 import com.aristel.MainApp;
 import com.aristel.network.ClientConnection;
 import com.aristel.network.IncomingMessageListener;
+import com.aristel.util.SoundManager;
+
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -37,11 +39,13 @@ public class RoomController implements IncomingMessageListener {
 
     @FXML 
     private void handleStart() { 
+        SoundManager.getInstance().play("click");
         ClientConnection.getInstance().sendMessage("START"); 
     }
 
     @FXML 
     private void handleLeave() { 
+        SoundManager.getInstance().play("click");
         ClientConnection.getInstance().sendMessage("LEAVE"); 
     }
     
@@ -59,6 +63,11 @@ public class RoomController implements IncomingMessageListener {
         else if (message.startsWith("MSG:")) {
             String text = message.substring(4);
             Platform.runLater(() -> addToLog(text));
+            if (text.contains("joined")) {
+                SoundManager.getInstance().play("join");
+            } else if (text.contains("demise") || text.contains("banished")) {
+                SoundManager.getInstance().play("left"); 
+            }
         }
         else if (message.startsWith("GAME_START:")) {
             Platform.runLater(() -> MainApp.loadView("views/GameBoardView.fxml"));
@@ -67,7 +76,10 @@ public class RoomController implements IncomingMessageListener {
             Platform.runLater(() -> MainApp.loadView("views/LobbyView.fxml"));
         }
         else if (message.equals("KICKED")) {
-            Platform.runLater(() -> kickedPopup.setVisible(true));
+            Platform.runLater(() -> {
+                SoundManager.getInstance().play("error");
+                kickedPopup.setVisible(true);
+            });
         }
     }
 

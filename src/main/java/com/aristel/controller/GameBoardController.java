@@ -3,6 +3,8 @@ package com.aristel.controller;
 import com.aristel.MainApp;
 import com.aristel.network.ClientConnection;
 import com.aristel.network.IncomingMessageListener;
+import com.aristel.util.SoundManager;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -87,6 +89,7 @@ public class GameBoardController implements IncomingMessageListener {
                 int pid = Integer.parseInt(message.split(":")[1]);
                 disconnectedPlayers.add(pid);
                 Platform.runLater(this::renderScoreboard);
+                SoundManager.getInstance().play("disconnect");
                 break;
 
             case "SCORES":
@@ -130,6 +133,8 @@ public class GameBoardController implements IncomingMessageListener {
     private void startSequence(int totalCards) {
         setupBoard(totalCards);
         
+        SoundManager.getInstance().play("start");
+
         startOrderContainer.getChildren().clear();
         List<Integer> sortedIds = new ArrayList<>(playerScores.keySet());
         Collections.sort(sortedIds); 
@@ -165,6 +170,7 @@ public class GameBoardController implements IncomingMessageListener {
             new KeyFrame(Duration.seconds(5), e -> {
                 startPopup.setVisible(false);
                 inputLocked = false; 
+                SoundManager.getInstance().play("shuffled");
             })
         );
         timeline.play();
@@ -205,11 +211,13 @@ public class GameBoardController implements IncomingMessageListener {
         if (index >= 0 && index < cardButtons.size()) {
             Button btn = cardButtons.get(index);
             setButtonImage(btn, imageCache.get(imageId));
+            SoundManager.getInstance().play("flip");
         }
     }
 
     private void hideCards(int idx1, int idx2) {
         instructionLabel.setText("Fate denies you.");
+        SoundManager.getInstance().play("fail");
         if (idx1 >= 0) setButtonImage(cardButtons.get(idx1), backCardImage);
         if (idx2 >= 0) setButtonImage(cardButtons.get(idx2), backCardImage);
     }
@@ -219,11 +227,12 @@ public class GameBoardController implements IncomingMessageListener {
         
         if (playerId == myPlayerId) {
             turnLabel.setText(displayName + " (You)");
-            turnLabel.setStyle("-fx-text-fill: #4cd137;"); // Green
+            turnLabel.setStyle("-fx-text-fill: #4cd137;"); 
             instructionLabel.setText("Choose your destiny.");
+            SoundManager.getInstance().play("turn");
         } else {
             turnLabel.setText(displayName);
-            turnLabel.setStyle("-fx-text-fill: #f1c40f;"); // Gold
+            turnLabel.setStyle("-fx-text-fill: #f1c40f;");
             instructionLabel.setText("Player " + playerId + " is choosing...");
         }
     }
@@ -244,6 +253,7 @@ public class GameBoardController implements IncomingMessageListener {
     private void updateOneScore(int playerId, int score) {
         playerScores.put(playerId, score);
         renderScoreboard();
+        SoundManager.getInstance().play("match");
         if (playerId == myPlayerId) instructionLabel.setText("Destiny favors you!");
         else instructionLabel.setText("Player " + playerId + " matched!");
     }
@@ -315,6 +325,7 @@ public class GameBoardController implements IncomingMessageListener {
 
         if (winners.contains(myPlayerId)) {
             if (winners.size() > 1) {
+                SoundManager.getInstance().play("draw");
                 setEndScreenContent(
                     "DRAW", "-fx-text-fill: #f1c40f;", "draw.png",
                     "The scales of destiny remain balanced.",
@@ -322,6 +333,7 @@ public class GameBoardController implements IncomingMessageListener {
                     "Fate demands a rematch to decide."
                 );
             } else {
+                SoundManager.getInstance().play("win");
                 setEndScreenContent(
                     "VICTORY", "-fx-text-fill: #4cd137;", "win.png",
                     "The threads of fate weave in your favor.",
@@ -330,6 +342,7 @@ public class GameBoardController implements IncomingMessageListener {
                 );
             }
         } else {
+            SoundManager.getInstance().play("lose");
             setEndScreenContent(
                 "DEFEAT", "-fx-text-fill: #e74c3c;", "lose.png",
                 "Your thread has been severed by destiny.",

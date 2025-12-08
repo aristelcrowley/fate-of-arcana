@@ -14,5 +14,5 @@ for /f "usebackq tokens=1* delims==" %%A in (".env") do (
 )
 
 echo Starting Client...
-java --module-path "%JAVAFX_LIB%" --add-modules javafx.controls,javafx.fxml -jar Client.jar
+java --module-path "%JAVAFX_LIB%" --add-modules javafx.controls,javafx.fxml,javafx.media -jar Client.jar
 pause
